@@ -1,0 +1,75 @@
+site_name: Claude Foundry Starter Kit
+site_description: Claude Foundry Starter Kit
+site_author: Faiz Chachiya
+
+repo_url: https://github.com/faizc/claude
+repo_name: claude
+
+theme:
+  name: material
+
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Dark mode
+
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.instant
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.tabs.link
+
+plugins:
+  - search
+  - mermaid2
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home:
+      - Overview: index.md
+
+  - Architecture:
+      - Landing Zone: architecture/landing-zone.md
+      - Network Design: architecture/network.md
+      - Security Design: architecture/security.md
+      - Entra ID Integration: architecture/entra-id-integration.md
+
+  - AI Gateway:
+      - Overview: gateway/index.md
+      - APIM Patterns: gateway/apim-patterns.md
+      - Token Governance: gateway/token-governance.md
+
+  - AI Foundry:
+      - Overview: foundry/index.md
+      - RAG Design: foundry/rag.md
+      - Agent Design: foundry/agents.md
+
+  - Operations:
+      - Runbooks: operations/runbooks.md
+      - Monitoring: operations/monitoring.md
+
+  - Hosting Claude on Azure:
+    - Hosting Option: hosting/options.md
+    - Supported Features when hosted on Azure: hosting/supported-features.md
+    - Migration: hosting/migration.md

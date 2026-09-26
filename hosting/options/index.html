@@ -1,0 +1,2358 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Claude Foundry Starter Kit">
+      
+      
+        <meta name="author" content="Faiz Chachiya">
+      
+      
+      
+        <link rel="prev" href="../../operations/monitoring/">
+      
+      
+        <link rel="next" href="../supported-features/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Hosting on Azure - Claude Foundry Starter Kit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#claude-in-microsoft-foundry" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Claude Foundry Starter Kit" class="md-header__button md-logo" aria-label="Claude Foundry Starter Kit" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Claude Foundry Starter Kit
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hosting on Azure
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/faizc/claude" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    claude
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Claude Foundry Starter Kit" class="md-nav__button md-logo" aria-label="Claude Foundry Starter Kit" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Claude Foundry Starter Kit
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/faizc/claude" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    claude
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/landing-zone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Landing Zone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/entra-id-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Entra ID Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Gateway
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Gateway
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gateway/apim-patterns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    APIM Patterns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gateway/token-governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Token Governance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Foundry
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Foundry
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundry/rag/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAG Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../foundry/agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/runbooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runbooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operations/monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hosting Claude on Azure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Hosting Claude on Azure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hosting on Azure
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hosting on Azure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hosting-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hosting options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-an-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install an SDK
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provisioning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provisioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#provision-a-foundry-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provision a Foundry resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-claude-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy Claude models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microsoft-entra-id-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microsoft Entra ID authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-key-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API key authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correlation-request-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correlation request IDs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-model-ids-and-deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API model IDs and deployments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#billing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Billing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#401-unauthorized-or-invalid-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        401 Unauthorized or Invalid API key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#403-forbidden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        403 Forbidden
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#429-too-many-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        429 Too Many Requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-not-found-or-deployment-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model not found or Deployment not found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid-model-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invalid model parameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supported-features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Supported Features when hosted on Azure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hosting-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hosting options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-an-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install an SDK
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provisioning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provisioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#provision-a-foundry-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provision a Foundry resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-claude-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy Claude models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#microsoft-entra-id-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Microsoft Entra ID authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-key-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API key authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#correlation-request-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Correlation request IDs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-model-ids-and-deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API model IDs and deployments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#billing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Billing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#401-unauthorized-or-invalid-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        401 Unauthorized or Invalid API key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#403-forbidden" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        403 Forbidden
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#429-too-many-requests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        429 Too Many Requests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-not-found-or-deployment-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model not found or Deployment not found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid-model-parameter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invalid model parameter
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="claude-in-microsoft-foundry">Claude in Microsoft Foundry</h1>
+<p>Access Claude models through Microsoft Foundry with Azure-native endpoints,
+identity, networking, billing, and monitoring.</p>
+<p>Claude usage is billed through Azure Marketplace in Claude Consumption Units
+(CCUs). Azure-hosted Claude deployments support Global Standard and US Data
+Zone Standard deployment types.</p>
+<h2 id="hosting-options">Hosting options</h2>
+<p>Claude models in Microsoft Foundry are offered with two hosting options. Select
+the hosting option while configuring the deployment.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Hosted on Azure</th>
+<th>Hosted on Anthropic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where inference runs</td>
+<td>Anthropic-operated service on Azure infrastructure</td>
+<td>Anthropic-operated service on Anthropic infrastructure</td>
+</tr>
+<tr>
+<td>Model availability</td>
+<td>Latest supported models in the Opus, Sonnet, and Haiku families</td>
+<td>All Claude models offered through Microsoft Foundry</td>
+</tr>
+<tr>
+<td>Deployment types</td>
+<td>Global Standard and US Data Zone Standard</td>
+<td>Global Standard</td>
+</tr>
+<tr>
+<td>Recommended for</td>
+<td>Most workloads</td>
+<td><a href="../supported-features/#additional-features-not-supported-when-hosted-on-azure">Models or features that are not yet available with Azure hosting</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Anthropic acts as an independent processor for Microsoft. Customers using
+Claude through Microsoft Foundry are subject to Anthropic's data use terms.
+For deployments hosted on Azure, prompts and completions remain within
+Azure. Only usage metadata and content flagged by Anthropic's safety systems
+egress to Anthropic. Anthropic continues to provide its safety and data
+commitments.</p>
+</div>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before deploying Claude, ensure that you have:</p>
+<ul>
+<li>An active, eligible Azure subscription</li>
+<li>Access to the <a href="https://ai.azure.com/">Microsoft Foundry portal</a></li>
+<li><a href="https://learn.microsoft.com/cli/azure/install-azure-cli">Azure CLI</a> for
+  command-line authentication and deployment validation</li>
+<li>An Azure RBAC role that permits model inference, such as <strong>Foundry User</strong> or
+  <strong>Cognitive Services User</strong></li>
+</ul>
+<p>This starter kit also requires Azure Developer CLI (<code>azd</code>) and uses Microsoft
+Entra ID for passwordless access.</p>
+<h2 id="install-an-sdk">Install an SDK</h2>
+<p>Anthropic client SDKs support Microsoft Foundry through a platform-specific
+package or client class.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Foundry is supported natively by the C#, Java, PHP, Python, and TypeScript
+SDKs. The Go and Ruby SDKs do not currently provide native Foundry clients;
+use their standard clients with the Foundry base URL as a workaround.</p>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:7"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><input id="__tabbed_1_6" name="__tabbed_1" type="radio" /><input id="__tabbed_1_7" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Python</label><label for="__tabbed_1_2">TypeScript</label><label for="__tabbed_1_3">C#</label><label for="__tabbed_1_4">Go</label><label for="__tabbed_1_5">Java</label><label for="__tabbed_1_6">PHP</label><label for="__tabbed_1_7">Ruby</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">pip</span> <span class="n">install</span> <span class="p">-</span><span class="n">-upgrade</span> <span class="n">anthropic</span>
+
+<span class="c"># Also required for Microsoft Entra ID authentication</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">azure-identity</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">npm</span> <span class="n">install</span> <span class="nv">@anthropic</span><span class="n">-ai</span><span class="p">/</span><span class="n">foundry-sdk</span>
+
+<span class="c"># Also required for Microsoft Entra ID authentication</span>
+<span class="n">npm</span> <span class="n">install</span> <span class="nv">@azure</span><span class="p">/</span><span class="n">identity</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">dotnet</span> <span class="n">add</span> <span class="n">package</span> <span class="n">Anthropic</span><span class="p">.</span><span class="n">Foundry</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c"># The Go SDK does not yet support Foundry natively.</span>
+<span class="n">go</span> <span class="n">get</span> <span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">anthropics</span><span class="p">/</span><span class="n">anthropic-sdk-go</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Gradle:</p>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.anthropic:anthropic-java:2.65.0&quot;</span><span class="p">)</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.anthropic:anthropic-java-foundry:2.65.0&quot;</span><span class="p">)</span>
+
+<span class="c1">// Also required for Microsoft Entra ID authentication</span>
+<span class="n">implementation</span><span class="p">(</span><span class="s">&quot;com.azure:azure-identity:1.18.3&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Maven:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.anthropic<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>anthropic-java<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>2.65.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.anthropic<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>anthropic-java-foundry<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>2.65.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.azure<span class="nt">&lt;/groupId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>azure-identity<span class="nt">&lt;/artifactId&gt;</span>
+<span class="w">    </span><span class="nt">&lt;version&gt;</span>1.18.3<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">composer</span> <span class="n">require</span> <span class="s2">&quot;anthropic-ai/sdk&quot;</span> <span class="s2">&quot;guzzlehttp/guzzle:^7&quot;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="c1"># The Ruby SDK does not yet support Foundry natively.</span>
+<span class="c1"># Add this dependency to your Gemfile.</span>
+<span class="n">gem</span><span class="w"> </span><span class="s2">&quot;anthropic&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="provisioning">Provisioning</h2>
+<p>Microsoft Foundry uses two levels:</p>
+<ul>
+<li>A <strong>Foundry resource</strong> contains security, networking, and billing
+  configuration.</li>
+<li>A <strong>model deployment</strong> is the named Claude model instance called by an
+  application.</li>
+</ul>
+<p>Create the Foundry resource first, then add one or more Claude deployments.</p>
+<h3 id="provision-a-foundry-resource">Provision a Foundry resource</h3>
+<ol>
+<li>Open the <a href="https://ai.azure.com/">Microsoft Foundry portal</a>.</li>
+<li>Create a Foundry resource or select an existing resource.</li>
+<li>Configure Microsoft Entra ID and Azure RBAC for access control.</li>
+<li>Optionally connect the resource to an Azure virtual network to restrict
+   network access.</li>
+<li>Record the resource name. It forms part of the API endpoint:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>https://{resource}.services.ai.azure.com/anthropic/v1/*
+</code></pre></div>
+<h3 id="deploy-claude-models">Deploy Claude models</h3>
+<p>Follow the current
+<a href="https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-claude?tabs=python#deploy-claude-models">Microsoft Learn deployment guidance</a>:</p>
+<ol>
+<li>Sign in to <a href="https://ai.azure.com/?cid=learnDocs">Microsoft Foundry</a> and make
+   sure the <strong>New Foundry</strong> toggle is on.</li>
+<li>From the portal home page, select <strong>Discover</strong> in the upper-right
+   navigation, then select <strong>Models</strong> in the left pane.</li>
+<li>Select a Claude model and review its model card. When both hosting versions
+   are available, Foundry opens <strong>Hosted on Azure</strong> (version 2) by default.
+   Confirm the selected version in the card's <strong>Quick facts</strong> pane.</li>
+<li>Select <strong>Deploy</strong> &gt; <strong>Custom settings</strong>.</li>
+<li>Review the Azure Marketplace terms, select the appropriate industry, and
+   select <strong>Agree and Proceed</strong> to subscribe to the offer.</li>
+<li>Select the <strong>Model version</strong>:<ul>
+<li><span style="color: #d32f2f;"><strong>2: Hosted on Azure</strong></span>
+  is selected by default when both versions are available. Inference runs
+  on Azure infrastructure, and supported models can use Global Standard or
+  US Data Zone Standard deployments.</li>
+<li><span style="color: #d32f2f;"><strong>1: Hosted on Anthropic infrastructure</strong></span>
+  can be selected when that hosting option is required. Inference runs on
+  Anthropic infrastructure and uses the Global Standard deployment type.</li>
+</ul>
+</li>
+<li>Configure the remaining deployment settings:<ul>
+<li><strong>Deployment name:</strong> Keep the model name or enter a custom deployment
+  name. Use this deployment name in the API <code>model</code> parameter.</li>
+<li><strong>Region scope:</strong> Select <strong>Global</strong>, or select <strong>Data Zone</strong> when it is
+  available for the selected model and version.</li>
+</ul>
+</li>
+<li>Select <strong>Deploy</strong>.</li>
+<li>After deployment, use the Foundry playground to test the model
+   interactively.</li>
+<li>Open the <strong>Details</strong> tab, verify the deployment configuration, and confirm
+    that its status is <strong>Succeeded</strong>.</li>
+</ol>
+<p>Selecting <strong>Deploy</strong> &gt; <strong>Default settings</strong> also creates version
+<strong>2: Hosted on Azure</strong> when the selected model supports both hosting versions.
+The Foundry project and resource must be in a region supported by the selected
+model and deployment type.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The deployment name becomes the value supplied in the API <code>model</code>
+parameter. Multiple deployments of the same model can use different names
+to separate versions, configurations, or rate limits.</p>
+</div>
+<h2 id="authentication">Authentication</h2>
+<p>Azure-hosted Claude endpoints support Azure-issued API keys and Microsoft Entra
+ID tokens. This starter kit uses Microsoft Entra ID so credentials do not need
+to be stored or rotated as API keys.</p>
+<p>All requests use an endpoint in this format:</p>
+<div class="highlight"><pre><span></span><code>https://{resource}.services.ai.azure.com/anthropic/v1/*
+</code></pre></div>
+<h3 id="microsoft-entra-id-authentication">Microsoft Entra ID authentication</h3>
+<p>Microsoft Entra ID integrates model access with Azure RBAC and organizational
+identity controls.</p>
+<ol>
+<li>Enable Microsoft Entra ID authentication for the Foundry resource.</li>
+<li>Assign the calling identity <strong>Foundry User</strong>, <strong>Cognitive Services User</strong>, or
+   another suitable least-privilege role.</li>
+<li>Use <code>DefaultAzureCredential</code> to obtain tokens for the
+   <code>https://ai.azure.com/.default</code> scope.</li>
+</ol>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:9"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><input id="__tabbed_2_5" name="__tabbed_2" type="radio" /><input id="__tabbed_2_6" name="__tabbed_2" type="radio" /><input id="__tabbed_2_7" name="__tabbed_2" type="radio" /><input id="__tabbed_2_8" name="__tabbed_2" type="radio" /><input id="__tabbed_2_9" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">cURL</label><label for="__tabbed_2_2">CLI</label><label for="__tabbed_2_3">Python</label><label for="__tabbed_2_4">TypeScript</label><label for="__tabbed_2_5">C#</label><label for="__tabbed_2_6">Go</label><label for="__tabbed_2_7">Java</label><label for="__tabbed_2_8">PHP</label><label for="__tabbed_2_9">Ruby</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nv">$token</span> <span class="p">=</span> <span class="n">az</span> <span class="n">account</span> <span class="nb">get-access</span><span class="n">-token</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-resource</span> <span class="n">https</span><span class="p">://</span><span class="n">ai</span><span class="p">.</span><span class="n">azure</span><span class="p">.</span><span class="n">com</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-query</span> <span class="n">accessToken</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-output</span> <span class="n">tsv</span>
+
+<span class="n">curl</span><span class="p">.</span><span class="n">exe</span> <span class="n">https</span><span class="p">://</span><span class="n">example-resource</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">ai</span><span class="p">.</span><span class="n">azure</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">anthropic</span><span class="p">/</span><span class="n">v1</span><span class="p">/</span><span class="n">messages</span> <span class="p">`</span>
+  <span class="n">-H</span> <span class="s2">&quot;content-type: application/json&quot;</span> <span class="p">`</span>
+  <span class="n">-H</span> <span class="s2">&quot;Authorization: Bearer $token&quot;</span> <span class="p">`</span>
+  <span class="n">-H</span> <span class="s2">&quot;anthropic-version: 2023-06-01&quot;</span> <span class="p">`</span>
+  <span class="n">-d</span> <span class="s1">&#39;{\&quot;model\&quot;:\&quot;claude-opus-5-5\&quot;,\&quot;max_tokens\&quot;:1024,\&quot;messages\&quot;:[{\&quot;role\&quot;:\&quot;user\&quot;,\&quot;content\&quot;:\&quot;Hello!\&quot;}]}&#39;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code># The ant CLI can send a bearer token with --auth-token, but a set
+# ANTHROPIC_API_KEY environment variable takes precedence over it (the CLI
+# prints only a console notice), so your request could authenticate with
+# the wrong credential. For the Entra ID flow, use the cURL example or one
+# of the SDK examples instead.
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">anthropic</span> <span class="kn">import</span> <span class="n">AnthropicFoundry</span>
+<span class="kn">from</span> <span class="nn">azure.identity</span> <span class="kn">import</span> <span class="n">DefaultAzureCredential</span><span class="p">,</span> <span class="n">get_bearer_token_provider</span>
+
+<span class="n">token_provider</span> <span class="o">=</span> <span class="n">get_bearer_token_provider</span><span class="p">(</span>
+    <span class="n">DefaultAzureCredential</span><span class="p">(),</span>
+    <span class="s2">&quot;https://ai.azure.com/.default&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">AnthropicFoundry</span><span class="p">(</span>
+    <span class="n">resource</span><span class="o">=</span><span class="s2">&quot;example-resource&quot;</span><span class="p">,</span>
+    <span class="n">azure_ad_token_provider</span><span class="o">=</span><span class="n">token_provider</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">message</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello!&quot;</span><span class="p">}],</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">AnthropicFoundry</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@anthropic-ai/foundry-sdk&quot;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">DefaultAzureCredential</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">getBearerTokenProvider</span>
+<span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@azure/identity&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">credential</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">DefaultAzureCredential</span><span class="p">();</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">tokenProvider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getBearerTokenProvider</span><span class="p">(</span>
+<span class="w">  </span><span class="nx">credential</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">&quot;https://ai.azure.com/.default&quot;</span>
+<span class="p">);</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AnthropicFoundry</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">resource</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;example-resource&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">azureADTokenProvider</span><span class="o">:</span><span class="w"> </span><span class="kt">tokenProvider</span>
+<span class="p">});</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">max_tokens</span><span class="o">:</span><span class="w"> </span><span class="kt">1024</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello!&quot;</span><span class="w"> </span><span class="p">}]</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">content</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">Anthropic.Foundry</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">Anthropic.Models.Messages</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">Azure.Identity</span><span class="p">;</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AnthropicFoundryClient</span><span class="p">(</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="nf">AnthropicFoundryIdentityTokenCredentials</span><span class="p">(</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="nf">DefaultAzureCredential</span><span class="p">(),</span>
+<span class="w">        </span><span class="s">&quot;example-resource&quot;</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">Messages</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">MessageCreateParams</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">MaxTokens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1024</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="k">new</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Role</span><span class="p">.</span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">Content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello!&quot;</span><span class="w"> </span><span class="p">}],</span>
+<span class="p">});</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">response</span><span class="p">.</span><span class="n">Content</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">block</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">block</span><span class="p">.</span><span class="n">Value</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">OfType</span><span class="o">&lt;</span><span class="n">TextBlock</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">block</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">block</span><span class="p">.</span><span class="n">Text</span><span class="p">)</span>
+<span class="p">));</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;context&quot;</span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">    </span><span class="s">&quot;os&quot;</span>
+
+<span class="w">    </span><span class="s">&quot;github.com/anthropics/anthropic-sdk-go&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/anthropics/anthropic-sdk-go/option&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">option</span><span class="p">.</span><span class="nx">WithoutEnvironmentDefaults</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">option</span><span class="p">.</span><span class="nx">WithBaseURL</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;https://example-resource.services.ai.azure.com/anthropic&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">        </span><span class="nx">option</span><span class="p">.</span><span class="nx">WithAuthToken</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;AZURE_ACCESS_TOKEN&quot;</span><span class="p">)),</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="w">    </span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Messages</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">MessageNewParams</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">Model</span><span class="p">:</span><span class="w">     </span><span class="s">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">MaxTokens</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">Messages</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">MessageParam</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">NewUserMessage</span><span class="p">(</span>
+<span class="w">                    </span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">NewTextBlock</span><span class="p">(</span><span class="s">&quot;Hello!&quot;</span><span class="p">),</span>
+<span class="w">                </span><span class="p">),</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.anthropic.client.AnthropicClient</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.anthropic.client.okhttp.AnthropicOkHttpClient</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.anthropic.foundry.backends.FoundryBackend</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.anthropic.models.messages.MessageCreateParams</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.azure.identity.AuthenticationUtil</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.azure.identity.DefaultAzureCredentialBuilder</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">java.util.function.Supplier</span><span class="p">;</span>
+
+<span class="n">Supplier</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">tokenSupplier</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">AuthenticationUtil</span><span class="p">.</span><span class="na">getBearerTokenSupplier</span><span class="p">(</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">DefaultAzureCredentialBuilder</span><span class="p">().</span><span class="na">build</span><span class="p">(),</span>
+<span class="w">        </span><span class="s">&quot;https://ai.azure.com/.default&quot;</span>
+<span class="w">    </span><span class="p">);</span>
+
+<span class="n">AnthropicClient</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AnthropicOkHttpClient</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">backend</span><span class="p">(</span><span class="n">FoundryBackend</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="na">bearerTokenSupplier</span><span class="p">(</span><span class="n">tokenSupplier</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">resource</span><span class="p">(</span><span class="s">&quot;example-resource&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">build</span><span class="p">())</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+
+<span class="n">MessageCreateParams</span><span class="w"> </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MessageCreateParams</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">model</span><span class="p">(</span><span class="s">&quot;claude-opus-5-5&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">maxTokens</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">addUserMessage</span><span class="p">(</span><span class="s">&quot;Hello!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+
+<span class="n">client</span><span class="p">.</span><span class="na">messages</span><span class="p">().</span><span class="na">create</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Anthropic\Foundry</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="nx">Foundry\Client</span><span class="o">::</span><span class="na">withCredentials</span><span class="p">(</span>
+    <span class="nx">authToken</span><span class="o">:</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;AZURE_ACCESS_TOKEN&#39;</span><span class="p">),</span>
+    <span class="nx">baseUrl</span><span class="o">:</span> <span class="s1">&#39;https://example-resource.services.ai.azure.com/anthropic&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$message</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">messages</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="s1">&#39;claude-opus-5-5&#39;</span><span class="p">,</span>
+    <span class="nx">maxTokens</span><span class="o">:</span> <span class="mi">1024</span><span class="p">,</span>
+    <span class="nx">messages</span><span class="o">:</span> <span class="p">[[</span><span class="s1">&#39;role&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello!&#39;</span><span class="p">]],</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nb">require</span><span class="w"> </span><span class="s2">&quot;anthropic&quot;</span>
+
+<span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">Anthropic</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+<span class="w">  </span><span class="ss">base_url</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example-resource.services.ai.azure.com/anthropic&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="ss">auth_token</span><span class="p">:</span><span class="w"> </span><span class="no">ENV</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s2">&quot;AZURE_ACCESS_TOKEN&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<span class="w">  </span><span class="ss">model</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="ss">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span>
+<span class="w">  </span><span class="ss">messages</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="p">{</span><span class="w"> </span><span class="ss">role</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">content</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello!&quot;</span><span class="w"> </span><span class="p">}</span><span class="o">]</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span><span class="w"> </span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">find</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">:text</span><span class="w"> </span><span class="p">}</span><span class="o">.</span><span class="n">text</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p><code>DefaultAzureCredential</code> supports local Azure CLI credentials and managed
+identity in Azure-hosted applications. The token provider refreshes tokens for
+long-running Python, TypeScript, C#, and Java processes. The Go, PHP, and Ruby
+examples use a static <code>AZURE_ACCESS_TOKEN</code>; those applications must refresh it
+before it expires.</p>
+<h3 id="api-key-authentication">API key authentication</h3>
+<p>API key authentication is available in Foundry, but Microsoft Entra ID is
+recommended for this starter kit. If an existing application requires an API
+key:</p>
+<ol>
+<li>In the Foundry portal, open <strong>Build</strong> &gt; <strong>Models</strong>.</li>
+<li>Select the Claude deployment and open <strong>Details</strong>.</li>
+<li>Copy the key and target URI.</li>
+<li>Store the key in a secret store or untracked environment variable.</li>
+<li>Send the key in the <code>api-key</code> or <code>x-api-key</code> request header.</li>
+</ol>
+<p>The Foundry SDK recognizes:</p>
+<ul>
+<li><code>ANTHROPIC_FOUNDRY_API_KEY</code> for the Azure-issued API key</li>
+<li><code>ANTHROPIC_FOUNDRY_RESOURCE</code> for the Foundry resource name</li>
+<li><code>ANTHROPIC_FOUNDRY_BASE_URL</code> for a complete Foundry base URL</li>
+</ul>
+<p>The resource name and base URL are alternatives; configure only one.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:9"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><input id="__tabbed_3_4" name="__tabbed_3" type="radio" /><input id="__tabbed_3_5" name="__tabbed_3" type="radio" /><input id="__tabbed_3_6" name="__tabbed_3" type="radio" /><input id="__tabbed_3_7" name="__tabbed_3" type="radio" /><input id="__tabbed_3_8" name="__tabbed_3" type="radio" /><input id="__tabbed_3_9" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">cURL</label><label for="__tabbed_3_2">CLI</label><label for="__tabbed_3_3">Python</label><label for="__tabbed_3_4">TypeScript</label><label for="__tabbed_3_5">C#</label><label for="__tabbed_3_6">Go</label><label for="__tabbed_3_7">Java</label><label for="__tabbed_3_8">PHP</label><label for="__tabbed_3_9">Ruby</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="n">curl</span><span class="p">.</span><span class="n">exe</span> <span class="n">https</span><span class="p">://</span><span class="n">example-resource</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">ai</span><span class="p">.</span><span class="n">azure</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">anthropic</span><span class="p">/</span><span class="n">v1</span><span class="p">/</span><span class="n">messages</span> <span class="p">`</span>
+  <span class="n">-H</span> <span class="s2">&quot;content-type: application/json&quot;</span> <span class="p">`</span>
+  <span class="n">-H</span> <span class="s2">&quot;api-key: $env:ANTHROPIC_FOUNDRY_API_KEY&quot;</span> <span class="p">`</span>
+  <span class="n">-H</span> <span class="s2">&quot;anthropic-version: 2023-06-01&quot;</span> <span class="p">`</span>
+  <span class="n">-d</span> <span class="s1">&#39;{\&quot;model\&quot;:\&quot;claude-opus-5-5\&quot;,\&quot;max_tokens\&quot;:1024,\&quot;messages\&quot;:[{\&quot;role\&quot;:\&quot;user\&quot;,\&quot;content\&quot;:\&quot;Hello!\&quot;}]}&#39;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nv">$env:ANTHROPIC_API_KEY</span> <span class="p">=</span> <span class="nv">$env:ANTHROPIC_FOUNDRY_API_KEY</span>
+
+<span class="n">ant</span> <span class="n">messages</span> <span class="n">create</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-base-url</span> <span class="n">https</span><span class="p">://</span><span class="n">example-resource</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">ai</span><span class="p">.</span><span class="n">azure</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">anthropic</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-model</span> <span class="n">claude-opus</span><span class="p">-</span><span class="n">5</span><span class="p">-</span><span class="n">5</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-max-tokens</span> <span class="n">1024</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-message</span> <span class="s1">&#39;{role: user, content: &quot;Hello!&quot;}&#39;</span> <span class="p">`</span>
+  <span class="p">-</span><span class="n">-transform</span> <span class="n">content</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">anthropic</span> <span class="kn">import</span> <span class="n">AnthropicFoundry</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">AnthropicFoundry</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;ANTHROPIC_FOUNDRY_API_KEY&quot;</span><span class="p">],</span>
+    <span class="n">resource</span><span class="o">=</span><span class="s2">&quot;example-resource&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">message</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Hello!&quot;</span><span class="p">}],</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">AnthropicFoundry</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@anthropic-ai/foundry-sdk&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">AnthropicFoundry</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">apiKey</span><span class="o">:</span><span class="w"> </span><span class="kt">process.env.ANTHROPIC_FOUNDRY_API_KEY</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">resource</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;example-resource&quot;</span>
+<span class="p">});</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">messages</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">model</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">max_tokens</span><span class="o">:</span><span class="w"> </span><span class="kt">1024</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">messages</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hello!&quot;</span><span class="w"> </span><span class="p">}]</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">content</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">Anthropic.Foundry</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">Anthropic.Models.Messages</span><span class="p">;</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AnthropicFoundryClient</span><span class="p">(</span>
+<span class="w">    </span><span class="k">new</span><span class="w"> </span><span class="nf">AnthropicFoundryApiKeyCredentials</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Environment</span><span class="p">.</span><span class="n">GetEnvironmentVariable</span><span class="p">(</span><span class="s">&quot;ANTHROPIC_FOUNDRY_API_KEY&quot;</span><span class="p">)</span><span class="o">!</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;example-resource&quot;</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="kt">var</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">client</span><span class="p">.</span><span class="n">Messages</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">MessageCreateParams</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">Model</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">MaxTokens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1024</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="k">new</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Role</span><span class="p">.</span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">Content</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello!&quot;</span><span class="w"> </span><span class="p">}],</span>
+<span class="p">});</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">Join</span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">response</span><span class="p">.</span><span class="n">Content</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">block</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">block</span><span class="p">.</span><span class="n">Value</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="n">OfType</span><span class="o">&lt;</span><span class="n">TextBlock</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">        </span><span class="p">.</span><span class="n">Select</span><span class="p">(</span><span class="n">block</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">block</span><span class="p">.</span><span class="n">Text</span><span class="p">)</span>
+<span class="p">));</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nx">main</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;context&quot;</span>
+<span class="w">    </span><span class="s">&quot;fmt&quot;</span>
+<span class="w">    </span><span class="s">&quot;os&quot;</span>
+
+<span class="w">    </span><span class="s">&quot;github.com/anthropics/anthropic-sdk-go&quot;</span>
+<span class="w">    </span><span class="s">&quot;github.com/anthropics/anthropic-sdk-go/option&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span><span class="w"> </span><span class="nx">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">client</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">NewClient</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">option</span><span class="p">.</span><span class="nx">WithoutEnvironmentDefaults</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">option</span><span class="p">.</span><span class="nx">WithBaseURL</span><span class="p">(</span>
+<span class="w">            </span><span class="s">&quot;https://example-resource.services.ai.azure.com/anthropic&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">        </span><span class="nx">option</span><span class="p">.</span><span class="nx">WithAPIKey</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Getenv</span><span class="p">(</span><span class="s">&quot;ANTHROPIC_FOUNDRY_API_KEY&quot;</span><span class="p">)),</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="w">    </span><span class="nx">message</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">Messages</span><span class="p">.</span><span class="nx">New</span><span class="p">(</span>
+<span class="w">        </span><span class="nx">context</span><span class="p">.</span><span class="nx">Background</span><span class="p">(),</span>
+<span class="w">        </span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">MessageNewParams</span><span class="p">{</span>
+<span class="w">            </span><span class="nx">Model</span><span class="p">:</span><span class="w">     </span><span class="s">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">MaxTokens</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">Messages</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">MessageParam</span><span class="p">{</span>
+<span class="w">                </span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">NewUserMessage</span><span class="p">(</span>
+<span class="w">                    </span><span class="nx">anthropic</span><span class="p">.</span><span class="nx">NewTextBlock</span><span class="p">(</span><span class="s">&quot;Hello!&quot;</span><span class="p">),</span>
+<span class="w">                </span><span class="p">),</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">Content</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.anthropic.client.AnthropicClient</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.anthropic.client.okhttp.AnthropicOkHttpClient</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.anthropic.foundry.backends.FoundryBackend</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.anthropic.models.messages.MessageCreateParams</span><span class="p">;</span>
+
+<span class="n">AnthropicClient</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AnthropicOkHttpClient</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">backend</span><span class="p">(</span><span class="n">FoundryBackend</span><span class="p">.</span><span class="na">fromEnv</span><span class="p">())</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+
+<span class="n">MessageCreateParams</span><span class="w"> </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MessageCreateParams</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">model</span><span class="p">(</span><span class="s">&quot;claude-opus-5-5&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">maxTokens</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">addUserMessage</span><span class="p">(</span><span class="s">&quot;Hello!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+
+<span class="n">client</span><span class="p">.</span><span class="na">messages</span><span class="p">().</span><span class="na">create</span><span class="p">(</span><span class="n">params</span><span class="p">);</span>
+</code></pre></div>
+<p>Set <code>ANTHROPIC_FOUNDRY_API_KEY</code> and <code>ANTHROPIC_FOUNDRY_RESOURCE</code> before
+running the example.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="k">use</span> <span class="nx">Anthropic\Foundry</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="nx">Foundry\Client</span><span class="o">::</span><span class="na">withCredentials</span><span class="p">(</span>
+    <span class="nx">apiKey</span><span class="o">:</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;ANTHROPIC_FOUNDRY_API_KEY&#39;</span><span class="p">),</span>
+    <span class="nx">baseUrl</span><span class="o">:</span> <span class="s1">&#39;https://example-resource.services.ai.azure.com/anthropic&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$message</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">messages</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="s1">&#39;claude-opus-5-5&#39;</span><span class="p">,</span>
+    <span class="nx">maxTokens</span><span class="o">:</span> <span class="mi">1024</span><span class="p">,</span>
+    <span class="nx">messages</span><span class="o">:</span> <span class="p">[[</span><span class="s1">&#39;role&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello!&#39;</span><span class="p">]],</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="nb">require</span><span class="w"> </span><span class="s2">&quot;anthropic&quot;</span>
+
+<span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">Anthropic</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+<span class="w">  </span><span class="ss">base_url</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://example-resource.services.ai.azure.com/anthropic&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="ss">api_key</span><span class="p">:</span><span class="w"> </span><span class="no">ENV</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="s2">&quot;ANTHROPIC_FOUNDRY_API_KEY&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+<span class="w">  </span><span class="ss">model</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;claude-opus-5-5&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="ss">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span>
+<span class="w">  </span><span class="ss">messages</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="p">{</span><span class="w"> </span><span class="ss">role</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">content</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello!&quot;</span><span class="w"> </span><span class="p">}</span><span class="o">]</span>
+<span class="p">)</span>
+
+<span class="nb">puts</span><span class="w"> </span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">find</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="n">type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">:text</span><span class="w"> </span><span class="p">}</span><span class="o">.</span><span class="n">text</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Never commit an API key to source control. Prefer Microsoft Entra ID for
+production workloads and store any required key in Azure Key Vault or
+another approved secret store.</p>
+</div>
+<h2 id="correlation-request-ids">Correlation request IDs</h2>
+<p>Foundry response headers include identifiers for tracing and support:</p>
+<ul>
+<li><code>request-id</code></li>
+<li><code>apim-request-id</code></li>
+</ul>
+<p>Record both values when investigating a failed request or contacting support.
+Together, they help trace the request through Anthropic and Azure API
+Management.</p>
+<h2 id="api-model-ids-and-deployments">API model IDs and deployments</h2>
+<p>Microsoft Foundry follows the Claude API model lifecycle. Review
+<a href="https://platform.claude.com/docs/en/about-claude/model-deprecations">model deprecations</a>
+before adopting or upgrading a model.</p>
+<p>The official documentation listed the following models on September 26, 2026.</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Default deployment name</th>
+<th style="text-align: center;">Hosted on Azure</th>
+<th style="text-align: center;">Hosted on Anthropic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Fable 5.1</td>
+<td><code>claude-fable-5-1</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Mythos 5.1 (<a href="https://anthropic.com/glasswing">limited availability</a>)</td>
+<td><code>claude-mythos-5-1</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Fable 5</td>
+<td><code>claude-fable-5</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Mythos 5 (<a href="https://anthropic.com/glasswing">limited availability</a>)</td>
+<td><code>claude-mythos-5</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Opus 5.5</td>
+<td><code>claude-opus-5-5</code></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Opus 5</td>
+<td><code>claude-opus-5</code></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Opus 4.8</td>
+<td><code>claude-opus-4-8</code></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Opus 4.7</td>
+<td><code>claude-opus-4-7</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Opus 4.6</td>
+<td><code>claude-opus-4-6</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Opus 4.5</td>
+<td><code>claude-opus-4-5</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Sonnet 5</td>
+<td><code>claude-sonnet-5</code></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td><code>claude-sonnet-4-6</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Sonnet 4.5</td>
+<td><code>claude-sonnet-4-5</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Claude Haiku 4.5</td>
+<td><code>claude-haiku-4-5</code></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+</tbody>
+</table>
+<p>The default deployment name normally matches the model ID. Custom deployment
+names are supported, and applications must send the deployment name—not
+necessarily the underlying model ID—in the <code>model</code> parameter.</p>
+<p>The <a href="https://ai.azure.com/catalog/publishers/anthropic">Foundry model catalog</a>
+is the source of truth for current availability.</p>
+<h2 id="billing">Billing</h2>
+<p>Claude in Microsoft Foundry is billed through
+<a href="https://azuremarketplace.microsoft.com/">Azure Marketplace</a>. Usage is measured
+in Claude Consumption Units, metered hourly, and included on the monthly Azure
+invoice. CCUs are usage units rather than prepaid credits, so there is no CCU
+balance to maintain.</p>
+<p>See
+<a href="https://platform.claude.com/docs/en/about-claude/pricing#claude-in-microsoft-foundry-pricing">Claude in Microsoft Foundry pricing</a>
+for current conversion and model token rates.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="401-unauthorized-or-invalid-api-key"><code>401 Unauthorized</code> or <code>Invalid API key</code></h3>
+<ul>
+<li>For Microsoft Entra ID, confirm the identity can obtain a token for
+  <code>https://ai.azure.com/.default</code>.</li>
+<li>Confirm that the token has not expired. Entra access tokens commonly expire
+  after about one hour; use a token provider for automatic refresh.</li>
+<li>For API key authentication, confirm the key belongs to the target Foundry
+  resource and has not been rotated.</li>
+</ul>
+<h3 id="403-forbidden"><code>403 Forbidden</code></h3>
+<ul>
+<li>Confirm the calling identity has an appropriate Azure RBAC assignment, such
+  as <strong>Foundry User</strong> or <strong>Cognitive Services User</strong>.</li>
+<li>Allow time for a new role assignment to propagate before retrying.</li>
+</ul>
+<h3 id="429-too-many-requests"><code>429 Too Many Requests</code></h3>
+<ul>
+<li>Apply exponential backoff with jitter and retry only retryable requests.</li>
+<li>Review usage and throttling in Azure Monitor.</li>
+<li>Request additional quota through Azure when sustained traffic exceeds the
+  deployment limit.</li>
+</ul>
+<p>Foundry responses do not include the standard Anthropic rate-limit headers.
+Use Azure monitoring and quota tools to track capacity and throttling.</p>
+<h3 id="model-not-found-or-deployment-not-found"><code>Model not found</code> or <code>Deployment not found</code></h3>
+<ul>
+<li>Pass the deployment name in the <code>model</code> parameter.</li>
+<li>Confirm the deployment exists in the target Foundry resource.</li>
+<li>Confirm the selected model and Azure-hosted version are available in the
+  deployment region or scope.</li>
+</ul>
+<h3 id="invalid-model-parameter"><code>Invalid model parameter</code></h3>
+<ul>
+<li>Verify that <code>model</code> contains the exact deployment name.</li>
+<li>If a custom deployment name was configured, do not substitute the underlying
+  model ID.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "search.highlight", "search.share", "content.code.copy", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
